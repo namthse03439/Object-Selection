@@ -3,7 +3,6 @@
 #include <fstream>
 
 #include "graphcut\GraphCutSegmentation.h"
-#include "lazy\LazySnapping.h"
 
 #define LBUTTON_OFF	0
 #define LBUTTON_ON 	1
@@ -19,7 +18,6 @@
 std::ofstream ofs("result\\time.csv");
 
 GraphCutSegmentation gc;
-LazySnapping ls;
 
 cv::Mat original_img, type, hint_img;
 std::vector<std::string> inputList;
@@ -179,8 +177,8 @@ void getObj(const std::string& fileName) {
 
 	// Read hints
 	type = cv::Mat::zeros(cv::Size(original_img.cols, original_img.rows), CV_8S);
-	hintObj.clear();
-	hintBkg.clear();
+	//hintObj.clear();
+	//hintBkg.clear();
 
 	std::cout << "starting to segment image" << fileName << std::endl;
 	std::ifstream hintFile(SRC + fileName + ".hint");
@@ -190,16 +188,14 @@ void getObj(const std::string& fileName) {
 		int x, y;
 		hintFile >> x >> y;
 		type.at<char>(y, x) = GraphCutSegmentation::BACKGROUND;
-		hintBkg.push_back({ x, y });
-		ls.setUpdateB(true);
+		//hintBkg.push_back({ x, y });
 	}
 	hintFile >> nSeed;
 	for (int i = 0; i < nSeed; i++) {
 		int x, y;
 		hintFile >> x >> y;
 		type.at<char>(y, x) = GraphCutSegmentation::OBJECT;
-		hintObj.push_back({ x, y });
-		ls.setUpdateF(true);
+		//hintObj.push_back({ x, y });
 	}
 
 	// Measure interactive graphcut
@@ -211,7 +207,7 @@ void getObj(const std::string& fileName) {
 	gc.segment(original_img, type, outMask);
 	end = cv::getTickCount();
 	gc.cleanGarbage();
-	ofs << double(end - start) / cv::getTickFrequency() << ',';
+	ofs << double(end - start) / cv::getTickFrequency() << ',0\n';
 
 	cv::Mat obj;
 	original_img.copyTo(obj, outMask);
@@ -223,12 +219,12 @@ void getObj(const std::string& fileName) {
 	//ls.setBackgroundPoints(hintBkg);
 	//ls.setForegroundPoints(hintObj);
 
-	start = cv::getTickCount();
+	//start = cv::getTickCount();
 	//ls.initMarkers();
 	//ls.runMaxFlow();
-	end = cv::getTickCount();
+	//end = cv::getTickCount();
 
-	ofs << double(end - start) / cv::getTickFrequency() << "\n";
+	//ofs << double(end - start) / cv::getTickFrequency() << "\n";
 	//obj = ls.getImageColor();
 	//cv::imshow("lsObj", obj);
 	//cv::imwrite(DST + fileName + "_lazy_object.jpg", obj, std::vector<int>{CV_IMWRITE_JPEG_QUALITY, 100});

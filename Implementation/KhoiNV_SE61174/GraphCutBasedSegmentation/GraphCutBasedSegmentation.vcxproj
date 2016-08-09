@@ -95,25 +95,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="graphcut\GraphCutSegmentation.cpp" />
-    <ClCompile Include="lazy\LazySnapping.cpp" />
-    <ClCompile Include="lazy\SeedsRevised.cpp" />
-    <ClCompile Include="lazy\Tools.cpp" />
-    <ClCompile Include="lazy\watershedLabel.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="max_flow\graph.cpp" />
     <ClCompile Include="max_flow\maxflow.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="graphcut\GraphCutSegmentation.h" />
-    <ClInclude Include="lazy\CImg.h" />
-    <ClInclude Include="lazy\cvMat.h" />
-    <ClInclude Include="lazy\LazySnapping.h" />
-    <ClInclude Include="lazy\objects.h" />
-    <ClInclude Include="lazy\SeedsRevised.h" />
-    <ClInclude Include="lazy\Tools.h" />
-    <ClInclude Include="lazy\util.h" />
-    <ClInclude Include="lazy\watershed.h" />
-    <ClInclude Include="lazy\watershedLabel.h" />
     <ClInclude Include="max_flow\block.h" />
     <ClInclude Include="max_flow\graph.h" />
   </ItemGroup>
